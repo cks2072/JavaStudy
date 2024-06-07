@@ -13,8 +13,8 @@ public class MemberMain {
 		MemberVO vo = new MemberVO();
 		
 		vo.setMemberno(2);
-		vo.setId("hong2");
-		vo.setName("홍길순");
+		vo.setId("hong200");
+		vo.setName("홍길순200");
 		
 		System.out.println(vo);
 		

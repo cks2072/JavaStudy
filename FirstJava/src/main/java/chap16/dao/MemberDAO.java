@@ -2,6 +2,7 @@ package chap16.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class MemberDAO {
 	// 데이터 베이스 관련 객체
 	Connection conn = null;
 	Statement stmt = null; // sql 문장 처리 하는 객체
+	PreparedStatement pstmt = null; 
 	ResultSet rs = null; // query 결과값 처리 하는 객체
 	
 	// 생성자 : db접속
@@ -53,11 +55,24 @@ public class MemberDAO {
 					" values ("+vo.getMemberno()+",'"+vo.getId()+"','"+vo.getName()+"')";
 			
 			System.out.println("sql : "+sql);
-					
+			
 			stmt = conn.createStatement(); // sql 문장을 처리할 객체
 			System.out.println("stmt : "+stmt);
 			result = stmt.executeUpdate(sql); // insert, delete, update 수행
 			
+			
+			// prepareStatement()
+			String sql2 = """
+					insert into member(memberno, id, name)
+					values (?,?,?)
+					""";
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, vo.getMemberno());
+			pstmt.setString(2, vo.getId());
+			pstmt.setString(3, vo.getName());
+			
+			result = pstmt.executeUpdate();
+
 		} catch (Exception e) {}
 		
 		return result;
