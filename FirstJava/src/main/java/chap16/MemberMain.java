@@ -20,10 +20,14 @@ public class MemberMain {
 		
 		// 데이터 추가
 		int rs = dao.insert(vo);
+		if ( rs > 0 ) {
+			System.out.println("회원 정보 정상적으로 등록 되었습니다.");
+		}
 		System.out.println("result code : "+rs);
 		
 		// 회원 목록
 		List<MemberVO> list = dao.list();
+		list.stream().forEach(System.out::println);
 	}
 
 }

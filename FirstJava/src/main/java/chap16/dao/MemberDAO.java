@@ -2,11 +2,10 @@ package chap16.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 import chap16.vo.MemberVO;
 
@@ -14,7 +13,7 @@ public class MemberDAO {
 	// 데이터 베이스 관련 객체
 	Connection conn = null;
 	Statement stmt = null; // sql 문장 처리 하는 객체
-	Result rs = null; // query 결과값 처리 하는 객체
+	ResultSet rs = null; // query 결과값 처리 하는 객체
 	
 	// 생성자 : db접속
 	public MemberDAO() {
@@ -37,9 +36,11 @@ public class MemberDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());	
 		} finally {
-			if (conn != null) try {
-				conn.close();
-			} catch (Exception e2) {}
+			
+//			if (conn != null) try {
+//				conn.close();
+//				System.out.println("접속 해제");
+//			} catch (Exception e2) {}
 		}
 		
 	}
@@ -55,7 +56,7 @@ public class MemberDAO {
 					
 			stmt = conn.createStatement(); // sql 문장을 처리할 객체
 			System.out.println("stmt : "+stmt);
-			result = stmt.executeUpdate(sql);
+			result = stmt.executeUpdate(sql); // insert, delete, update 수행
 			
 		} catch (Exception e) {}
 		
@@ -79,10 +80,15 @@ public class MemberDAO {
 			
 			while (rs.next()) {
 				MemberVO vo = new MemberVO();
+				vo.setMemberno(rs.getInt("memberno"));
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
 				
+				list.add(vo);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
+		return list;
 	}
 }
