@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class MemberDAO {
 	public int insert(MemberVO vo) {
 		int result = 0;
 		try {
+			/* Statement()
 			String sql = "insert into member (memberno, id, name)"+
 					" values ("+vo.getMemberno()+",'"+vo.getId()+"','"+vo.getName()+"')";
 			
@@ -59,7 +61,7 @@ public class MemberDAO {
 			stmt = conn.createStatement(); // sql 문장을 처리할 객체
 			System.out.println("stmt : "+stmt);
 			result = stmt.executeUpdate(sql); // insert, delete, update 수행
-			
+			*/
 			
 			// prepareStatement()
 			String sql2 = """
@@ -79,10 +81,76 @@ public class MemberDAO {
 		
 	}
 	// 데이터 조회
+	public MemberVO selectOne(int memberno) {
+		MemberVO vo = new MemberVO();
+		
+		try {
+//			String sql = "SELECT * FROM member WHERE memberno="+memberno;
+//			
+//			stmt = conn.createStatement();
+//			rs = stmt.executeQuery(sql);
+
+			// prepareStatement()
+			String sql = "SELECT * FROM member WHERE memberno= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberno);
+			rs = pstmt.executeQuery();
+				
+			if (rs.next()) {
+				vo.setMemberno(rs.getInt("memberno"));
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
+			}
+			
+		} catch (Exception e) {}
+		
+		return vo;
+	}
 	
 	// 데이터 수정
+	public int update(MemberVO vo) {
+		int result = 0;
+		 
+		try {
+//			String sql = "UPDATE member SET NAME ='"+vo.getName()+"''HongGilSun200' WHERE memberno ="+vo.getMemberno();
+//			stmt = conn.createStatement();
+//			result = stmt.executeUpdate(sql);
+			
+			// prepareStatement()
+			String sql = "UPDATE member SET NAME = 'HongGilSun200' WHERE memberno = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getMemberno());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (Exception e) {}
+		
+		return 0;
+		
+	}
 	
 	// 데이터 삭제
+	public int delete(int memberno) {
+		int result = 0;
+		try {
+//			String sql = "DELETE FROM member WHERE memberno = "+memberno;
+			
+			// prepareStatement()
+			String sql = "DELETE FROM member WHERE memberno = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberno);
+			pstmt.setString(result, sql);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {}
+
+		return 0;
+		
+	}
+	
 	
 	// 회원 목록
 	public List<MemberVO> list() {
@@ -101,9 +169,16 @@ public class MemberDAO {
 				
 				list.add(vo);
 			}
-		} catch (Exception e) {
-			
-		}
+		} catch (Exception e) {}
+		
 		return list;
+	}
+		
+		// 자원 close()
+		public void close() {
+			if (conn !=null) { try {conn.close();} catch (Exception e) {} }
+			if (stmt !=null) { try {conn.close();} catch (Exception e) {} }
+			if (rs !=null) { try {conn.close();} catch (Exception e) {} }
+		
 	}
 }
