@@ -8,8 +8,9 @@ import chap19.member.dao.MemberDAOImpl;
 import chap19.member.vo.MemberVO;
 
 public class MemberControllerImpl implements MemberController {
-	public MemberDAO memberDAO;
 	
+	public MemberDAO memberDAO;
+
 	public MemberControllerImpl() {
 		memberDAO = new MemberDAOImpl();
 	}
@@ -18,31 +19,55 @@ public class MemberControllerImpl implements MemberController {
 	public List<MemberVO> listMember(MemberVO memberVO) {
 		List<MemberVO> memList = new ArrayList<MemberVO>();
 		
-		// 회원 정보 조회하는 DAO 를 호출
+		// 회원 정보 조회하는 dao 호출
 		try {
-			memList = memberDAO.selectMember(memberVO);
+			memList =  memberDAO.selectMember(memberVO);
 			
+		} catch (Exception e) {System.out.println(e.getMessage());	}
+		return memList;
+	}
+
+	@Override
+	public int regMember(MemberVO memberVO) {
+		//회원 정보 등록 하는 dao 호출
+		int result = 0;
+		try {
+			result = memberDAO.insertMember(memberVO);
+		} catch (Exception e) { System.out.println(e.getMessage());	}
+		
+		return result;
+	}
+
+	@Override
+	public int modMember(MemberVO memberVO) {
+		int result = 0;
+		// 회원 정보 수정 하는 dao 호출
+		try {
+			result = memberDAO.updateMember(memberVO);
+		} catch (Exception e) { System.out.println(e.getMessage());	}
+		
+		return result;
+	}
+
+	@Override
+	public int removeMember(MemberVO memberVO) {
+		int result = 0;
+		// 회원 정보 삭제하는 dao 호출
+		try {
+			result = memberDAO.deleteMember(memberVO);
+		} catch (Exception e) { System.out.println(e.getMessage());	}
+		
+		return result;
+	}
+
+	@Override
+	public MemberVO checkId(String memId) {
+		MemberVO vo = new MemberVO();
+		try {
+			vo = memberDAO.checkId(memId);
 		} catch (Exception e) { System.out.println(e.getMessage()); }
-		
-		return null;
-	}
-
-	@Override
-	public void regMember(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void modMember(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeMember(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		
+	
+		return vo;
 	}
 
 }

@@ -6,16 +6,14 @@ import chap19.member.vo.MemberVO;
 
 public interface MemberController {
 	// 회원 조회
-	public List<MemberVO> listMember(MemberVO vo);
-	
+	public List<MemberVO> listMember(MemberVO memberVO);
 	// 회원 가입
-	public void regMember(MemberVO memberVO);
-	
+	public int regMember(MemberVO memberVO);
 	// 회원 수정
-	public void modMember(MemberVO memberVO);
-	
+	public int modMember(MemberVO memberVO);
 	// 회원 삭제
-	public void removeMember(MemberVO memberVO);
+	public int removeMember(MemberVO memberVO);
 	
-	
+	// 회원 ID로 정보 조회
+	public MemberVO checkId(String memId);
 }
