@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import chap19.common.base.AbstractBaseWindow;
 import chap19.member.controller.MemberController;
 import chap19.member.controller.MemberControllerImpl;
+import chap19.member.window.ModfiyMemDialog;
 import chap19.member.window.RegMemDialog;
+import chap19.member.window.SearchMemDialog;
 
 public class RentMainWindow extends AbstractBaseWindow { // JFrame 기능을 가진 추상클래스 상속받음
 
@@ -91,7 +93,7 @@ public class RentMainWindow extends AbstractBaseWindow { // JFrame 기능을 가
 		jPanel = new JPanel();
 		lCarName = new JLabel("차량 번호");
 		tf = new JTextField(10);
-		
+	
 		comboBox = new JComboBox();
 		comboBox.addItem("차량 번호");
 		comboBox.addItem("차량 색상");
@@ -118,7 +120,7 @@ public class RentMainWindow extends AbstractBaseWindow { // JFrame 기능을 가
 		memMenu21.addActionListener(new MemberHandler());
 		memMenu22.addActionListener(new MemberHandler());
 		memMenu23.addActionListener(new MemberHandler());
-		memMenu24.addActionListener(new MemberHandler());
+//		memMenu24.addActionListener(new MemberHandler());
 		
 //		carMenu11.addActionListener(new carHandler());
 		
@@ -131,7 +133,6 @@ public class RentMainWindow extends AbstractBaseWindow { // JFrame 기능을 가
 	public static void main(String[] args) {
 		RentMainWindow rentCar = new RentMainWindow();
 		rentCar.startFrame();
-
 	}
 	
 	// 내부클래스에 이벤트핸들러 처리
@@ -148,9 +149,9 @@ public class RentMainWindow extends AbstractBaseWindow { // JFrame 기능을 가
 				if (e.getSource() == memMenu21) {
 					new RegMemDialog(memberController, "회원 등록창");
 				} else if (e.getSource() == memMenu22) {
-					
+					new SearchMemDialog(memberController, "회원 조회창");
 				} else if (e.getSource() == memMenu23) {
-					
+					new ModfiyMemDialog(memberController, "회원 수정창");
 				} else if (e.getSource() == memMenu24) {
 					
 				}

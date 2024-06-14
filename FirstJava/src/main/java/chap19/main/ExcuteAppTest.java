@@ -10,7 +10,7 @@ import chap19.member.vo.MemberVO;
 import chap19.member.window.RegMemDialog;
 
 public class ExcuteAppTest {
-
+	
 	public static void main(String[] args) {
 		
 		MemberControllerImpl controller = new MemberControllerImpl();

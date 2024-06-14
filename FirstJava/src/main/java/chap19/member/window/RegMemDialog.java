@@ -37,13 +37,13 @@ public class RegMemDialog extends JDialog {
 
 		setTitle(str);
 		init(); // 화면 요소 객체 생성 메서드 호출
-		
+	
 	}
 	
 	public void init() {
 		lId = new JLabel("아이디");
-		LName = new JLabel("비밀번호");
-		lPassword = new JLabel("이름");
+		LName = new JLabel("이름");
+		lPassword = new JLabel("비밀번호");
 		lAddress = new JLabel("주소");
 		lPhonNum = new JLabel("전화번호");
 	

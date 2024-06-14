@@ -48,7 +48,7 @@ public class MemberControllerImpl implements MemberController {
 		
 		return result;
 	}
-
+	
 	@Override
 	public int removeMember(MemberVO memberVO) {
 		int result = 0;
