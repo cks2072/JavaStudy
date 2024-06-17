@@ -29,6 +29,7 @@ public class MemberControllerImpl implements MemberController {
 
 	@Override
 	public int regMember(MemberVO memberVO) {
+		System.out.println("regMember():"+memberVO);
 		//회원 정보 등록 하는 dao 호출
 		int result = 0;
 		try {
@@ -41,18 +42,18 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	public int modMember(MemberVO memberVO) {
 		int result = 0;
-		// 회원 정보 수정 하는 dao 호출
+		//회원 정보 수정 하는 dao 호출
 		try {
 			result = memberDAO.updateMember(memberVO);
 		} catch (Exception e) { System.out.println(e.getMessage());	}
 		
 		return result;
 	}
-	
+
 	@Override
 	public int removeMember(MemberVO memberVO) {
 		int result = 0;
-		// 회원 정보 삭제하는 dao 호출
+		
 		try {
 			result = memberDAO.deleteMember(memberVO);
 		} catch (Exception e) { System.out.println(e.getMessage());	}
@@ -63,10 +64,11 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	public MemberVO checkId(String memId) {
 		MemberVO vo = new MemberVO();
+		
 		try {
 			vo = memberDAO.checkId(memId);
-		} catch (Exception e) { System.out.println(e.getMessage()); }
-	
+			
+		} catch (Exception e) { System.out.println(e.getMessage());	}
 		return vo;
 	}
 

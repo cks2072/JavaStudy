@@ -13,7 +13,7 @@ public interface MemberController {
 	public int modMember(MemberVO memberVO);
 	// 회원 삭제
 	public int removeMember(MemberVO memberVO);
-	
-	// 회원 ID로 정보 조회
-	public MemberVO checkId(String memId);
+	// 회원 ID로 정보 ㅈ회
+	public MemberVO checkId(String string);
+
 }

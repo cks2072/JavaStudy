@@ -128,7 +128,8 @@ public class MemberDAOImpl extends AbstractBaseDAO implements MemberDAO{
 		return result;
 		
 	}
-	// 회원 ID로 정보 조회
+
+	// 회원 ID로 정보 유무 체크
 	@Override
 	public MemberVO checkId(String id) throws Exception {
 		int result = 0;
@@ -136,18 +137,18 @@ public class MemberDAOImpl extends AbstractBaseDAO implements MemberDAO{
 		MemberVO vo = new MemberVO();
 		
 		String _id = id;
-		String sql ="SELECT * FROM t_member WHERE memId = '?'";
-		
+		String sql = "SELECT * FROM t_member WHERE memId = ?";
+			
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, _id);
 		
 		rs = pstmt.executeQuery();
 		
-		while (rs.next()) {
-			String memId			= rs.getString("memId");
+		while(rs.next()) {
+			String memId 		= rs.getString("memId");
 			String memPassword 	= rs.getString("memPassword");
 			String memName 		= rs.getString("memName");
-			String memAddress 		= rs.getString("memAddress");
+			String memAddress 	= rs.getString("memAddress");
 			String memPhoneNum 	= rs.getString("memPhoneNum");
 			
 			vo.setMemId(memId);
@@ -155,11 +156,9 @@ public class MemberDAOImpl extends AbstractBaseDAO implements MemberDAO{
 			vo.setMemPassword(memPassword);
 			vo.setMemPhoneNum(memPhoneNum);
 			vo.setMemAddress(memAddress);
+			
 		}
-		
 		return vo;
-		
 	}
-	
 
 }
