@@ -31,8 +31,9 @@ public class ChatClientTest {
 		nickName = sc.nextLine();
 		
 		try {
-			socket = new Socket("127.0.0.1", 8888);
+//			socket = new Socket("127.0.0.1", 8888);
 //			socket= new Socket("192.168.0.12",8888);
+			socket = new Socket("192.168.0.146", 8888);
 			
 			is = socket.getInputStream();
 			os = socket.getOutputStream();
